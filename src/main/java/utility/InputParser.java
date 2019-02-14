@@ -18,16 +18,16 @@ public class InputParser {
     
     public InputParser(){
         scanner = new Scanner(System.in);
-        fileManager = new FileManager();
         fileWriter = new FileWriter();
+        fileManager = new FileManager();
         lastCommand = "";
         lastData = "";
     }
     
     public String getInput(){
-        lastCommand = scanner.next();
-        lastData = scanner.nextLine();
-        return lastCommand + lastData;
+        lastCommand = scanner.next().trim();
+        lastData = scanner.nextLine().trim();
+        return lastCommand + " " + lastData;
     }
     
     public void processInput(){
@@ -53,6 +53,10 @@ public class InputParser {
         }else{
             System.out.println(lastCommand + " isn't recognised!");
         }
+    }
+    
+    public FileManager getFileManager(){
+        return fileManager;
     }
     
 }

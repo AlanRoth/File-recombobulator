@@ -17,13 +17,10 @@ public class FileManager {
     private final String filePath3 = "../Resources/file3";
     //Counter to make sure the first 3 files added overwrite the default file paths.
     private int pathCounter;
-    private ArrayList<String> filePathBuffer;
-    private ArrayList<File> fileBuffer;
+    private ArrayList<String> filePathBuffer = new ArrayList<String>();;
+    private ArrayList<File> fileBuffer = new ArrayList<File>();;
     
     public FileManager(){
-        filePathBuffer = new ArrayList<String>();
-        fileBuffer = new ArrayList<File>();
-        
         filePathBuffer.add(filePath1);
         filePathBuffer.add(filePath2);
         filePathBuffer.add(filePath3);

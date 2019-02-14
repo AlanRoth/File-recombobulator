@@ -13,14 +13,14 @@ import utility.InputParser;
  */
 public class UserIO {  
     private final InputParser inputParser;
-    private final FileManager fileManager;
+    public final FileManager fileManager;
     private final MenuManager menuManager;
     
     public UserIO(){
         System.out.println("Welcome to the database file re-combobulator\n"
                 + "\t...For all your recombobulating needs!\n");
-        fileManager = new FileManager();
         inputParser = new InputParser();
+        fileManager = inputParser.getFileManager();
         menuManager = new MenuManager();
     }
     
@@ -34,14 +34,6 @@ public class UserIO {
                  for(String path : filePaths){
                      System.out.println(path);
                  }
-                 System.out.println(filePaths.toString());
-                 //(a)dd more file paths
-                 //(r)ecombobulate files at file paths into one (try to)
-                 //(e)dit recombobulated file
-                 //(c)lear all file paths
-                 //(l)oad default file paths
-                 //(v)erbose mode
-                 //(q)uit
                  
                  menuManager.printHelpMenu();                                                 
                  
