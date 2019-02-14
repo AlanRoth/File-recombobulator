@@ -9,4 +9,12 @@ package utility;
  */
 public class FileWriter {
     
+    public void makeFile(){
+        
+    }
+    
+    public void makeFile(String path){
+        
+    }
+    
 }

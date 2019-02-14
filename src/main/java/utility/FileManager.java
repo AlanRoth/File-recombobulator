@@ -11,61 +11,57 @@ import java.util.ArrayList;
  * @author asroth
  */
 public class FileManager {
-    private String filePath1 = "../Resources/file1";
-    private String filePath2 = "../Resources/file2";
-    private String filePath3 = "../Resources/file3";
-    private ArrayList<String> filePathBuffer = new ArrayList<String>();
-    private ArrayList<File> fileBuffer = new ArrayList<File>();
+    //3 default file paths
+    private final String filePath1 = "../Resources/file1";
+    private final String filePath2 = "../Resources/file2";
+    private final String filePath3 = "../Resources/file3";
+    //Counter to make sure the first 3 files added overwrite the default file paths.
+    private int pathCounter;
+    private ArrayList<String> filePathBuffer;
+    private ArrayList<File> fileBuffer;
     
     public FileManager(){
+        filePathBuffer = new ArrayList<String>();
+        fileBuffer = new ArrayList<File>();
+        
         filePathBuffer.add(filePath1);
         filePathBuffer.add(filePath2);
         filePathBuffer.add(filePath3);
         
-        addFiles();
+        pathCounter = 0;
     }         
     
-    public FileManager(String filePath1){
-        this.filePath1 = filePath1;
-    }
-    
-    public FileManager(String filePath1, String filePath2){
-        this.filePath1 = filePath1;
-        this.filePath2 = filePath2;
-    }
-    
-    public FileManager(String filePath1, String filePath2, String filePath3){    
-        this.filePath1 = filePath1;
-        this.filePath2 = filePath2;
-        this.filePath3 = filePath3;
-    }  
-    
-    public FileManager(String...filePath){
-        filePathBuffer = new ArrayList<>();
-        fileBuffer = new ArrayList<>();
-        
-        for(String path : filePath){           
-            if(path != null || !(path.trim().isEmpty())){
+    public void addPath(String path){
+        switch (pathCounter) {
+            case 0:
+                filePathBuffer.set(0, path);
+                break;
+            case 1:
+                filePathBuffer.set(1, path);
+                break;
+            case 2:
+                filePathBuffer.set(2, path);
+                break;
+            default:
                 filePathBuffer.add(path);
-            }        
-        }  
-        
-        addFiles();
-    }   
+                break;
+        }
+        pathCounter++;
+    }
     
-    private void addFiles(){
+    public void addFiles(){
         for(String path : filePathBuffer){
             File file = new File(path);
             if(file.exists()){
                 fileBuffer.add(file);
             }else{
-                System.out.println("Couldn't find file at: " + path);
+                System.out.println("Couldn't find file at: " + path + " \nSo it was ignored");
             }
         }
-    }
+    }   
     
-    public int getFileNumber(){
-        return fileBuffer.size();
+    public ArrayList<String> getFilePathBuffer(){
+        return filePathBuffer;
     }
     
     public ArrayList<File> getFileBuffer(){
