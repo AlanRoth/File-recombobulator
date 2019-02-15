@@ -19,8 +19,8 @@ public class MenuManager {
                          + "-add {file path} [Adds the file path for a file to a list]\n"
                          + "-recombobulate {leave empty for default} || {file path} [Combines all files in the list into one] \n"
                          + "-edit {leave empty for default} || {filepath} [Edit a recombobulated file at a file path]\n"
-                         + "-clear [Clears added filepaths]\n"
-                         + "-load [Loads default file paths back up]\n"
+                         + "-load [Adds default file paths to already added ones]\n"
+                         + "-clear [Clears all added paths, including default]\n"
                          + "-verbose on: " + userIO.isVerbose() +" [Toggles verbose mode, will print edits to console]\n"
                          + "-quit [Quits the program]\n");
     }

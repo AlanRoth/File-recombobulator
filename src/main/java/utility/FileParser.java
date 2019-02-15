@@ -3,11 +3,19 @@
  */
 package utility;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import model.Person;
@@ -18,37 +26,29 @@ import model.Person;
  */
 public class FileParser {
     private ArrayList<File> files;
+    BufferedReader reader;
     
     public FileParser(){
-
+        
+    }
+    
+    public void getPersonFromFiles(){
+        for(File file : files){
+            try {
+                reader = new BufferedReader(new FileReader(file));
+                reader.readLine();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            Person newPerson = new Person();
+            
+            
+        }
     }
     
     public void setFileList(ArrayList<File> files){
         this.files = files;
     }
     
-    public ArrayList<Person> extractDataFromFiles(){
-        ArrayList<Person> personList = new ArrayList<Person>();
-        HashMap<String, Person> personMap = new HashMap<String, Person>();
-        String currentId = "";
-        
-        for(File file : files){
-            
-        }
-        
-        return personList;
-    }
     
-    private String extractId(File file){
-        Pattern idPattern = Pattern.compile("ID:\\s\\d+\\s?");
-        //Matcher idMatcher = idPattern.matcher(cs);
-        try{
-            Scanner scanner = new Scanner(file);
-        }catch(FileNotFoundException ex){
-            ex.printStackTrace();
-        }
-        
-        return null;
-        
-    }
 }

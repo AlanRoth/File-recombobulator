@@ -14,7 +14,7 @@ public class Person {
     private String DOB;
     private Appearance appearance;
     
-    public Person(String ID, String name, String jobTitle, String DOB){
+    public Person(){
         this.ID = ID;
         this.name = name;
         this.jobTitle = jobTitle;

@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class FileManager {
     //3 default file paths
     private final String filePath1 = "/home/asroth/Documents/resource/file1";
-    private final String filePath2 = "/home/asroth/Documents/resource/file1";
-    private final String filePath3 = "/home/asroth/Documents/resource/file1";
+    private final String filePath2 = "/home/asroth/Documents/resource/file2";
+    private final String filePath3 = "/home/asroth/Documents/resource/file3";
     //Counter to make sure the first 3 files added overwrite the default file paths.
     private int pathCounter;
-    private ArrayList<String> filePathBuffer = new ArrayList<String>();;
-    private ArrayList<File> fileBuffer = new ArrayList<File>();;
+    private ArrayList<String> filePathBuffer = new ArrayList<String>();
+    private ArrayList<File> fileBuffer = new ArrayList<File>();
     
     public FileManager(){
         filePathBuffer.add(filePath1);
@@ -58,10 +58,13 @@ public class FileManager {
     }   
     
     public void addDefaultPaths(){
-        pathCounter = 0;
-        filePathBuffer.set(0, filePath1);
-        filePathBuffer.set(1, filePath2);
-        filePathBuffer.set(2, filePath3);
+        filePathBuffer.add(filePath1);
+        filePathBuffer.add(filePath2);
+        filePathBuffer.add(filePath3);
+    }   
+    
+    public void clearPaths(){
+        filePathBuffer.clear();
     }
     
     public ArrayList<String> getFilePathBuffer(){

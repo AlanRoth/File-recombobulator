@@ -42,16 +42,16 @@ public class InputParser {
             }
         }else if(lastCommand.equalsIgnoreCase("edit")){
             
-        }else if(lastCommand.equalsIgnoreCase("clear")){
-            
         }else if(lastCommand.equalsIgnoreCase("load")){
             fileManager.addDefaultPaths();
+        }else if(lastCommand.equalsIgnoreCase("clear")){
+            fileManager.clearPaths();
         }else if(lastCommand.equalsIgnoreCase("verbose")){
             
         }else if(lastCommand.equalsIgnoreCase("quit")){
             System.exit(0);
         }else{
-            System.out.println(lastCommand + " isn't recognised!");
+            System.out.println("Command " + lastCommand + " isn't recognised!");
         }
     }
     
