@@ -1,7 +1,7 @@
 /*
  * Copyright Payara Services Ltd
  */
-package org.alan.roth.filemanipulator;
+package filemanipulator;
 
 import java.util.ArrayList;
 import utility.FileManager;

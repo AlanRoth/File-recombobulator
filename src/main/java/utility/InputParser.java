@@ -45,7 +45,7 @@ public class InputParser {
         }else if(lastCommand.equalsIgnoreCase("clear")){
             
         }else if(lastCommand.equalsIgnoreCase("load")){
-            
+            fileManager.addDefaultPaths();
         }else if(lastCommand.equalsIgnoreCase("verbose")){
             
         }else if(lastCommand.equalsIgnoreCase("quit")){
