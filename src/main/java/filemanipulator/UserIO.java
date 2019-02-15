@@ -15,13 +15,15 @@ public class UserIO {
     private final InputParser inputParser;
     public final FileManager fileManager;
     private final MenuManager menuManager;
+    private boolean isVerbose;
     
     public UserIO(){
         System.out.println("Welcome to the database file re-combobulator\n"
                 + "\t...For all your recombobulating needs!\n");
         inputParser = new InputParser();
         fileManager = inputParser.getFileManager();
-        menuManager = new MenuManager();
+        menuManager = new MenuManager(this);
+        isVerbose = false;
     }
     
     public void mainMenu(){
@@ -41,5 +43,9 @@ public class UserIO {
                  inputParser.processInput();
              }
  
+    }
+    
+    public boolean isVerbose(){
+        return isVerbose;
     }
 }
