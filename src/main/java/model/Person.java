@@ -12,7 +12,8 @@ public class Person {
     private String name;
     private String jobTitle;
     private String DOB;
-    private Appearance appearance;
+    //private Appearance appearance;
+    private String appearance;
     
     public Person(){
         this.ID = ID;
@@ -21,6 +22,7 @@ public class Person {
         this.DOB = DOB;
     }
     
+    /*
     public void setAppearance(Appearance appearance){
         this.appearance = appearance;
     }
@@ -28,7 +30,16 @@ public class Person {
     public Appearance getAppearance(){
         return appearance;
     }
-
+    */
+    
+    public void setAppearance(String appearace){
+        this.appearance = appearance;
+    }
+    
+    public String getAppearance(){
+        return appearance;
+    }
+    
     public String getID() {
         return ID;
     }

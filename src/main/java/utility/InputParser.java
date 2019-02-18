@@ -12,13 +12,11 @@ import java.util.Scanner;
 public class InputParser {
     private final Scanner scanner;
     private final FileManager fileManager;
-    private final FileWriter fileWriter;
     private String lastCommand;
     private String lastData;
     
     public InputParser(){
         scanner = new Scanner(System.in);
-        fileWriter = new FileWriter();
         fileManager = new FileManager();
         lastCommand = "";
         lastData = "";
@@ -36,9 +34,9 @@ public class InputParser {
         }else if(lastCommand.equalsIgnoreCase("recombobulate")){
             fileManager.addFiles();
             if(lastData.trim().isEmpty() || lastData == null){
-                fileWriter.makeFile();
+                fileManager.recombobulateFiles();
             }else{
-                fileWriter.makeFile(lastData);
+                fileManager.recombobulateFiles(lastData);
             }
         }else if(lastCommand.equalsIgnoreCase("edit")){
             

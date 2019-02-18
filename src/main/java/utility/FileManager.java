@@ -15,10 +15,14 @@ public class FileManager {
     private final String filePath1 = "/home/asroth/Documents/resource/file1";
     private final String filePath2 = "/home/asroth/Documents/resource/file2";
     private final String filePath3 = "/home/asroth/Documents/resource/file3";
+    private final String outputPath = "/home/asroth/Documents/resource/output";
     //Counter to make sure the first 3 files added overwrite the default file paths.
     private int pathCounter;
     private ArrayList<String> filePathBuffer = new ArrayList<String>();
     private ArrayList<File> fileBuffer = new ArrayList<File>();
+    
+    private FileWriter filewriter;
+    private FileParser fileparser;
     
     public FileManager(){
         filePathBuffer.add(filePath1);
@@ -26,6 +30,9 @@ public class FileManager {
         filePathBuffer.add(filePath3);
         
         pathCounter = 0;
+        
+        filewriter = new FileWriter();
+        fileparser = new FileParser();
     }         
     
     public void addPath(String path){
@@ -62,6 +69,16 @@ public class FileManager {
         filePathBuffer.add(filePath2);
         filePathBuffer.add(filePath3);
     }   
+    
+    public void recombobulateFiles(String outputPath){
+        for(File file : fileBuffer){
+            fileparser.getPersonListFromFile(file, outputPath);
+        }   
+    }
+    
+    public void recombobulateFiles(){
+        recombobulateFiles(outputPath);
+    }
     
     public void clearPaths(){
         filePathBuffer.clear();

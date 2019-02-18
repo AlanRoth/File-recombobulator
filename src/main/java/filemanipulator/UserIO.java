@@ -19,7 +19,7 @@ public class UserIO {
     
     public UserIO(){
         System.out.println("Welcome to the database file re-combobulator\n"
-                + "\t...For all your recombobulating needs!\n");
+                + "\t...For all your recombobulating needs...\n");
         inputParser = new InputParser();
         fileManager = inputParser.getFileManager();
         menuManager = new MenuManager(this);
@@ -42,7 +42,6 @@ public class UserIO {
                  inputParser.getInput();
                  inputParser.processInput();
              }
- 
     }
     
     public boolean isVerbose(){
