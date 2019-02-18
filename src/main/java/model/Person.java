@@ -14,12 +14,10 @@ public class Person {
     private String DOB;
     //private Appearance appearance;
     private String appearance;
+    private String phoneNumber;
     
     public Person(){
-        this.ID = ID;
-        this.name = name;
-        this.jobTitle = jobTitle;
-        this.DOB = DOB;
+        
     }
     
     /*
@@ -32,7 +30,20 @@ public class Person {
     }
     */
     
-    public void setAppearance(String appearace){
+    @Override
+    public String toString(){
+        return ID + ": " + name + ", " + jobTitle + ", " + DOB + ", " + phoneNumber + ", " + appearance; 
+    }
+    
+    public void setPhoneNumber(String number){
+        this.phoneNumber = number;
+    }
+    
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+    
+    public void setAppearance(String appearance){
         this.appearance = appearance;
     }
     

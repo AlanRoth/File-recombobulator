@@ -19,67 +19,91 @@ import model.Person;
  */
 public class FileParser {
     
+    private ArrayList<Person> personList;
+    
     public FileParser(){
         
     }
 
-    public ArrayList<Person> getPersonListFromFile(File file, String outputPath) {
+    public ArrayList<Person> getPersonListFromFile(File file) {
         HashMap<String, Person> personMap = new HashMap<String, Person>();
-        
+
         Pattern idPattern = Pattern.compile("ID: \\d+[^\\s]");
         Pattern namePattern = Pattern.compile("Name: [a-zA-Z].+");
         Pattern jobPattern = Pattern.compile("Job Title: [a-zA-Z].+");
-        Pattern dobPattern = Pattern.compile("DOB: \\d\\d[\\/]\\d\\d[\\/]\\d+");
-        Pattern appearancePattern = Pattern.compile("Appearance: .+");
-        
+        Pattern dobPattern = Pattern.compile("DOB: [0-9]{2}.[0-9]{2}.[0-9]{4}");
+        Pattern appearancePattern = Pattern.compile("Appearance:.+");
+        Pattern mobilePattern = Pattern.compile("Phone Number: [0-9]{11}");
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line = "";
-            String currentID = "";  
-            
-            Matcher idMatcher;
-            Matcher nameMatcher;
-            Matcher jobMatcher;
-            Matcher dobMatcher;
-            Matcher appearanceMatcher;
-            
-            while (line != null) {       
-                Person newperson = new Person();
+            String currentID = "";
+
+            Matcher idMatcher = idPattern.matcher(line);
+            Matcher nameMatcher = namePattern.matcher(line);
+            Matcher jobMatcher = jobPattern.matcher(line);
+            Matcher dobMatcher = dobPattern.matcher(line);
+            Matcher appearanceMatcher = appearancePattern.matcher(line);
+            Matcher mobileMatcher = mobilePattern.matcher(line);
+
+            while ( line != null) {
                 line = reader.readLine();
-                
-                idMatcher = idPattern.matcher(line);
-                nameMatcher = namePattern.matcher(line);
-                jobMatcher = jobPattern.matcher(line);
-                dobMatcher = dobPattern.matcher(line);
-                appearanceMatcher = appearancePattern.matcher(line);             
-                
-                if (idMatcher.find()) {
-                    currentID = idMatcher.group();
-                    if(!personMap.containsKey(currentID)){
-                        personMap.put(currentID, newperson);
+
+                if (line != null) {
+                    
+                    idMatcher.reset(line);
+                    nameMatcher.reset(line);
+                    jobMatcher.reset(line);
+                    dobMatcher.reset(line);
+                    appearanceMatcher.reset(line);
+                    mobileMatcher.reset(line);
+                    
+                    if (idMatcher.find()) {
+                        currentID = idMatcher.group();
+                        if (!personMap.containsKey(currentID)) {
+                            Person newperson = new Person();
+                            newperson.setID(currentID);
+                            personMap.put(currentID, newperson);
+                        }
                     }
-                }
-                
-                if(nameMatcher.find()){
-                    personMap.get(currentID).setName(nameMatcher.group());
-                }
-                
-                if(jobMatcher.find()){
-                    personMap.get(currentID).setJobTitle(jobMatcher.group());
-                }
-                
-                if(dobMatcher.find()){
-                    personMap.get(currentID).setDOB(jobMatcher.group());
-                }
-                
-                if(appearanceMatcher.find()){
-                    personMap.get(currentID).setAppearance(jobMatcher.group());
+
+                    if (nameMatcher.find()) {
+                        personMap.get(currentID).setName(nameMatcher.group());
+                    }
+
+                    if (jobMatcher.find()) {
+                        personMap.get(currentID).setJobTitle(jobMatcher.group());
+                    }
+
+                    if (dobMatcher.find()) {
+                        personMap.get(currentID).setDOB(dobMatcher.group());
+                    }
+
+                    if (appearanceMatcher.find()) {
+                        personMap.get(currentID).setAppearance(appearanceMatcher.group());
+                    }    
+                    
+                    if(mobileMatcher.find()){
+                        personMap.get(currentID).setPhoneNumber(mobileMatcher.group());
+                    }
+                    
                 }
 
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return null;
+        
+        for(String key : personMap.keySet()){
+            System.out.println(personMap.get(key).toString());
+        }
+        System.out.println("\n");
+        
+        for(String key : personMap.keySet()){
+            personList.add(personMap.get(key));
+        }
+        
+        return personList;
     }
 }
 

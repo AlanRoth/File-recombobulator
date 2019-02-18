@@ -72,7 +72,7 @@ public class FileManager {
     
     public void recombobulateFiles(String outputPath){
         for(File file : fileBuffer){
-            fileparser.getPersonListFromFile(file, outputPath);
+            fileparser.getPersonListFromFile(file);
         }   
     }
     
