@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class InputParser {
     private final Scanner scanner;
     private final FileManager fileManager;
+    private boolean isEditMode;
     private String lastCommand;
     private String lastData;
     
@@ -20,6 +21,7 @@ public class InputParser {
         fileManager = new FileManager();
         lastCommand = "";
         lastData = "";
+        isEditMode = false;
     }
     
     public String getInput(){
@@ -39,7 +41,7 @@ public class InputParser {
                 fileManager.recombobulateFiles(lastData);
             }
         }else if(lastCommand.equalsIgnoreCase("edit")){
-            
+            isEditMode = true;
         }else if(lastCommand.equalsIgnoreCase("load")){
             fileManager.addDefaultPaths();
         }else if(lastCommand.equalsIgnoreCase("clear")){

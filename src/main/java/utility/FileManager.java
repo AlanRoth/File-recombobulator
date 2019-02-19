@@ -4,7 +4,11 @@
 package utility;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Person;
 
 /**
  *
@@ -15,13 +19,13 @@ public class FileManager {
     private final String filePath1 = "/home/asroth/Documents/resource/file1";
     private final String filePath2 = "/home/asroth/Documents/resource/file2";
     private final String filePath3 = "/home/asroth/Documents/resource/file3";
-    private final String outputPath = "/home/asroth/Documents/resource/output";
+    private String outputPath = "/home/asroth/Documents/resource/output.txt";
     //Counter to make sure the first 3 files added overwrite the default file paths.
     private int pathCounter;
     private ArrayList<String> filePathBuffer = new ArrayList<String>();
     private ArrayList<File> fileBuffer = new ArrayList<File>();
     
-    private FileWriter filewriter;
+    private FileMaker filewriter;
     private FileParser fileparser;
     
     public FileManager(){
@@ -31,7 +35,7 @@ public class FileManager {
         
         pathCounter = 0;
         
-        filewriter = new FileWriter();
+        filewriter = new FileMaker();
         fileparser = new FileParser();
     }         
     
@@ -70,11 +74,24 @@ public class FileManager {
         filePathBuffer.add(filePath3);
     }   
     
-    public void recombobulateFiles(String outputPath){
-        for(File file : fileBuffer){
-            fileparser.getPersonListFromFile(file);
-        }   
-    }
+    public void recombobulateFiles(String path){
+        ArrayList<Person> personList= fileparser.getPersonListFromFiles(fileBuffer);
+        File outputFile = new File(path);
+        
+        try {
+            if(outputFile.exists()){
+                outputFile.delete();
+            }
+            
+            outputFile.createNewFile();     
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        for(int i = 0; i < personList.size(); i++){
+            filewriter.writeToFile(outputFile, personList.get(i).toString());
+        }
+    } 
     
     public void recombobulateFiles(){
         recombobulateFiles(outputPath);

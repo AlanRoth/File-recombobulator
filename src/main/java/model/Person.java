@@ -32,7 +32,7 @@ public class Person {
     
     @Override
     public String toString(){
-        return ID + ": " + name + ", " + jobTitle + ", " + DOB + ", " + phoneNumber + ", " + appearance; 
+        return ID + "\n" + name + "\n" + jobTitle + "\n" + DOB + "\n" + phoneNumber + "\n" + appearance + "\n";
     }
     
     public void setPhoneNumber(String number){
