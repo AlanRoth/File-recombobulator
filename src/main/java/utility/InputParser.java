@@ -20,6 +20,10 @@ public class InputParser {
         lastData = "";
     }
     
+    public String getLine(){
+        return scanner.next().trim();
+    }
+    
     public Command getInput(){
         lastCommand = scanner.next().trim();
         lastData = scanner.nextLine().trim();

@@ -12,9 +12,8 @@ public class PersonBean implements java.io.Serializable{
     private String name;
     private String jobTitle;
     private String DOB;
-    //private Appearance appearance;
-    private String appearance;
     private String phoneNumber;
+    private AppearanceBean appearance;
     
     public PersonBean(){
         
@@ -32,7 +31,7 @@ public class PersonBean implements java.io.Serializable{
     
     @Override
     public String toString(){
-        return ID + "\n" + name + "\n" + jobTitle + "\n" + DOB + "\n" + phoneNumber + "\n" + appearance + "\n";
+        return ID + "\n" + name + "\n" + jobTitle + "\n" + DOB + "\n" + phoneNumber + "\n" + appearance.toString() + "\n";
     }
     
     public void setPhoneNumber(String number){
@@ -43,11 +42,11 @@ public class PersonBean implements java.io.Serializable{
         return phoneNumber;
     }
     
-    public void setAppearance(String appearance){
+    public void setAppearance(AppearanceBean appearance){
         this.appearance = appearance;
     }
     
-    public String getAppearance(){
+    public AppearanceBean getAppearance(){
         return appearance;
     }
     

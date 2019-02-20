@@ -7,14 +7,19 @@ package model;
  *
  * @author asroth
  */
-public class Appearance {
+public class AppearanceBean implements java.io.Serializable{
     private String height;
     private String hairColour;
     private String eyeColour;
     private String gender;
     
-    public Appearance(){
+    public AppearanceBean(){
         
+    }
+    
+    @Override
+    public String toString(){
+        return "Appearance: Height: " + height + "; Hair Colour: " + hairColour + "; Gender: " + gender + "; Eye Colour: " + eyeColour;
     }
     
     public void setHeight(String height){

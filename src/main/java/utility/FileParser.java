@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import model.AppearanceBean;
 import model.PersonBean;
 
 /**
@@ -37,6 +38,13 @@ public class FileParser {
         Pattern dobPattern = Pattern.compile("DOB: [0-9]{2}.[0-9]{2}.[0-9]{4}");
         Pattern appearancePattern = Pattern.compile("Appearance:.+");
         Pattern mobilePattern = Pattern.compile("Phone Number: [0-9]{11}");
+        
+        //Appearance patterns
+        Pattern heightPattern = Pattern.compile("Height: \\d+\\w+");
+        Pattern hairPattern = Pattern.compile("Hair Colour: \\w+");
+        Pattern genderPattern = Pattern.compile("Gender: (Male|Female)");
+        Pattern eyePattern = Pattern.compile("Eye Colour: \\w+");
+        
         for (File file : fileList) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line = "";
@@ -46,8 +54,13 @@ public class FileParser {
                 Matcher nameMatcher = namePattern.matcher(line);
                 Matcher jobMatcher = jobPattern.matcher(line);
                 Matcher dobMatcher = dobPattern.matcher(line);
-                Matcher appearanceMatcher = appearancePattern.matcher(line);
                 Matcher mobileMatcher = mobilePattern.matcher(line);
+                
+                //Appearance matchers
+                Matcher heightMatcher = heightPattern.matcher(line);
+                Matcher hairMatcher = hairPattern.matcher(line);
+                Matcher genderMatcher = genderPattern.matcher(line);
+                Matcher eyeMatcher = eyePattern.matcher(line);
 
                 while (line != null) {
                     line = reader.readLine();
@@ -58,14 +71,20 @@ public class FileParser {
                         nameMatcher.reset(line);
                         jobMatcher.reset(line);
                         dobMatcher.reset(line);
-                        appearanceMatcher.reset(line);
                         mobileMatcher.reset(line);
+                        
+                        heightMatcher.reset(line);
+                        hairMatcher.reset(line);
+                        genderMatcher.reset(line);
+                        eyeMatcher.reset(line);
 
                         if (idMatcher.find()) {
                             currentID = idMatcher.group();
                             if (!personMap.containsKey(currentID)) {
                                 PersonBean newPerson = new PersonBean();
+                                AppearanceBean appearance = new AppearanceBean();
                                 newPerson.setID(currentID);
+                                newPerson.setAppearance(appearance);
                                 personMap.put(currentID, newPerson);
                             }
                         }
@@ -82,13 +101,26 @@ public class FileParser {
                             personMap.get(currentID).setDOB(dobMatcher.group());
                         }
 
-                        if (appearanceMatcher.find()) {
-                            personMap.get(currentID).setAppearance(appearanceMatcher.group());
-                        }
-
                         if (mobileMatcher.find()) {
                             personMap.get(currentID).setPhoneNumber(mobileMatcher.group());
                         }
+                        
+                        if(heightMatcher.find()){
+                            personMap.get(currentID).getAppearance().setHeight(heightMatcher.group());
+                        }
+                        
+                        if(hairMatcher.find()){
+                            personMap.get(currentID).getAppearance().setHairColour(hairMatcher.group());
+                        }
+                        
+                        if(genderMatcher.find()){
+                            personMap.get(currentID).getAppearance().setGender(genderMatcher.group());
+                        }
+                        
+                        if(eyeMatcher.find()){
+                            personMap.get(currentID).getAppearance().setEyeColour(eyeMatcher.group());
+                        }
+                        
                     }
                 }
 

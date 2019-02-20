@@ -16,20 +16,19 @@ public class MenuManager {
                          + "-edit {leave empty for default file path} || {filepath} [Edit a recombobulated file at a file path]\n"
                          + "-load [Adds default file paths to already added ones]\n"
                          + "-clear [Clears all added paths, including default]\n"
-                         + "-verbose on: " + isVerbose +" [Toggles verbose mode, will print edits to console]\n"
+                         + "-verbose isOn: " + isVerbose +" [Toggles verbose mode, will print edits to console]\n"
                          + "-quit [Quits the program]\n");
     }
     
-    public void printEditMenu(){
+    public void printEditMenu(String filepath){
         System.out.println("\nEdit mode\n"
-                         + "-select {filepath} [Selects a file to edit at provided filepath]"
+                         + "Currently selected file path: " + filepath + "\n"
+                         + "-select {filepath} [Selects a file to edit at provided filepath]\n"
                          + "-print [Prints all the contents of the currently selected file]\n"
                          + "-new [Makes a new entry]"
-                         + "-append {ID} {data} [Adds a line to the end of a entry]\n"
-                         + "-update {ID} {field} {data} [Update field under a specified ID with the provided data]\n"
-                         + "-updateall {ID...} {field} {data} [Provide comma seperated ID's to update all their fields]\n"
+                         + "-update {ID} {field} {data} [Overwrites the provided field with the provided data]\n"
+                         + "-updateall {ID...} {field} {data} [Provide comma seperated ID's to update the fields with provided data in one action]\n"
                          + "-delete {ID} [Removes the entry that has the provided ID]\n"
-                         + "-change {filepath} [Change the file you are editing]\n"
-                         + "-menu [Return to the main menu]\n");
+                         + "-back [Return to the main menu]\n");
     }                       
 }

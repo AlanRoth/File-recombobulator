@@ -33,25 +33,35 @@ public class UserIO {
                 + "\t...For all your recombobulating needs...\n");
         inputParser = new InputParser();      
         fileManager = new FileManager(OUTPUTPATH, FILEPATH1, FILEPATH2, FILEPATH3);
+        
         fileEditor = new FileEditor();
+        fileEditor.setCurrentFilePath(OUTPUTPATH);
+        
         menuManager = new MenuManager();
-        commandParser = new CommandParser(fileManager, fileEditor);
+        commandParser = new CommandParser(fileManager, fileEditor);     
     }
     
-    public void mainMenu(){
-             isRunning = true;       
-             while(isRunning){                
-                 System.out.println("\nFile paths loaded: ");
-                 //Gets the file paths from fileManager and loops through them
-                 for(String path : fileManager.getFilePathQueue()){
-                     System.out.println(path);
-                 }
-                 
-                 menuManager.printHelpMenu(fileEditor.isVerbose());                                                                
-                 if(!commandParser.processCommand(inputParser.getInput())){
-                     isRunning = false;
-                     System.exit(0);
-                 }                         
-             }
+    public void mainMenu() {
+        isRunning = true;
+        while (isRunning) {
+            
+            if (commandParser.isEditing()) {
+                menuManager.printEditMenu(fileEditor.getCurrentFilePath());
+            } else {
+
+                System.out.println("\nFile paths loaded: ");
+                //Gets the file paths from fileManager and loops through them
+                for (String path : fileManager.getFilePathQueue()) {
+                    System.out.println(path);
+                }
+
+                menuManager.printHelpMenu(fileEditor.isVerbose());
+            }
+
+            if (!commandParser.processCommand(inputParser.getInput())) {
+                isRunning = false;
+            }  
+            
+        }
     }
 }

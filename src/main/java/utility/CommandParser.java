@@ -22,9 +22,7 @@ public class CommandParser {
     
     public boolean processCommand(Command command){       
         String commandWord = command.getCommandWord().toUpperCase();
-        if(isEditing){
-            return processEditCommand(command);
-        }
+        //Main commands
         switch(commandWord){
             case "ADD":
                 fileManager.addPath(command.getCommandData());
@@ -33,11 +31,7 @@ public class CommandParser {
                 fileManager.recombobulateFiles(command.getCommandData());
                 return true;
             case "EDIT":
-                if(isEditing){
-                    System.out.println("You're already in edit mode!");
-                }else{
-                    isEditing = true;
-                }
+                isEditing = true;
                 return true;
             case "LOAD":
                 fileManager.addDefaultPaths();
@@ -49,36 +43,34 @@ public class CommandParser {
                 //TO DO
                 return true;
             case "QUIT":              
-                return false;
-            default:
-                System.out.println("Command " + commandWord + " is not recognised");
+                return false;         
         }       
-        return true;
-    }
-    
-    private boolean processEditCommand(Command command){
-        String commandWord = command.getCommandWord().toUpperCase();
-        fileEditor.setCurrentFilePath(fileManager.getOutputPath());
-        switch(commandWord){
-            case "SELECT":
-                if (!command.hasData()) {
-                    System.out.println("You need to specify a file path.");
-                } else {
+        
+        //Edit commands
+        if(isEditing){
+            switch(commandWord){
+                case "SELECT":
                     fileEditor.setCurrentFilePath(command.getCommandData());
-                }
-                return true;
-            case "PRINT":
-                fileEditor.printContents();
-            case "MENU":              
-                return false;
-            default:
-                System.out.println("Command " + commandWord + " is not recognised");
+                    return true;
+                case "PRINT":
+                    fileEditor.printContents();
+                    return true;
+                case "NEW":
+                    fileEditor.newEntry();
+                    return true;
+                case "UPDATE":
+                    fileEditor.updateEntry(command.getCommandData());
+                case "BACK":
+                    isEditing = false;
+                    return true;
+            }
         }
+        System.out.println("Command: " + commandWord + " is not recognised!");
         return true;
     }
-    
-    public boolean IsEditing(){
-       return isEditing;
+   
+    public boolean isEditing(){
+        return isEditing;
     }
     
     public FileManager getFileManager(){

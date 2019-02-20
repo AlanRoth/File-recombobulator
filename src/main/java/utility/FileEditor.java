@@ -17,6 +17,7 @@ public class FileEditor {
     private boolean isVerbose;
     private MenuManager menuManager;
     private FileParser fileParser;
+    private FileMaker fileMaker;
     private String currentFile;
     private CommandParser commandParser;
     private InputParser inputParser;
@@ -25,21 +26,62 @@ public class FileEditor {
         isVerbose = false;
         fileParser = new FileParser();
         menuManager = new MenuManager();
+        inputParser = new InputParser();
+        fileMaker = new FileMaker();
     }
     
-    public void editMenu() {
-        
-    }
-    
-    public void printContents() {
+    public boolean printContents() {
         File file = new File(currentFile);
-        if (file.exists()) {
-            for (PersonBean person : fileParser.getPersonListFromFile(file)) {
+        if (!file.exists()) {
+            System.out.println("Couldn't print the contents of the file at: " + currentFile);
+            return false;
+        }
+        
+        for (PersonBean person : fileParser.getPersonListFromFile(file)) {
                 System.out.println(person.toString());
             }
-        } else {
-            System.out.println("Couldn't print the contents of the file at: " + currentFile);
+        return true;
+    }
+    
+    public boolean newEntry() {
+        File file = new File(currentFile);
+        if (!file.exists()) {
+            System.out.println("Can't edit file because it does not exist");
+            return false;
         }
+
+        PersonBean person = new PersonBean();
+        System.out.println("Assign a ID to the new entry: ");
+        person.setID("ID: " + inputParser.getLine());
+        System.out.println("Assign a name to the new entry: ");
+        person.setName("Name: " + inputParser.getLine());
+        System.out.println("Assign a job title to the new entry: ");
+        person.setJobTitle("Job Title: " + inputParser.getLine());
+        System.out.println("Assign a Date Of Birth to the new entry: ");
+        person.setDOB("DOB: " + inputParser.getLine());
+        System.out.println("Assign a phone number to the new entry: ");
+        person.setPhoneNumber("Phone number" + inputParser.getLine());
+        System.out.println("Assign appearance: TO DO");
+        
+        fileMaker.writeToFile(file, person.toString());
+        
+        return true;
+    }
+    
+    public boolean updateEntry(String commandData){
+        File file = new File(currentFile);
+        if(!file.exists()){
+            System.out.println("Can't edit file because it does not exist");
+            return false;
+        }
+        
+        //TO DO
+        //Extract ID and field, then update the field with the provided data
+        
+        for(PersonBean person : fileParser.getPersonListFromFile(file)){
+            
+        }     
+        return true;
     }
     
     public void registerCommandParser(CommandParser commandParser){
