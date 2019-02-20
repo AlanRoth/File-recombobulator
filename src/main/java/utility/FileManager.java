@@ -6,62 +6,61 @@ package utility;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Person;
+import model.PersonBean;
 
 /**
  *
  * @author asroth
  */
-public class FileManager {
-    //3 default file paths
-    private final String filePath1 = "/home/asroth/Documents/resource/file1";
-    private final String filePath2 = "/home/asroth/Documents/resource/file2";
-    private final String filePath3 = "/home/asroth/Documents/resource/file3";
-    private String outputPath = "/home/asroth/Documents/resource/output.txt";
+public class FileManager {  
+    private final String outputPath;
+    private final String filePath1;
+    private final String filePath2;
+    private final String filePath3;
     //Counter to make sure the first 3 files added overwrite the default file paths.
     private int pathCounter;
-    private ArrayList<String> filePathBuffer = new ArrayList<String>();
-    private ArrayList<File> fileBuffer = new ArrayList<File>();
+    private final ArrayList<String> filePathQueue = new ArrayList<String>();
+    private final ArrayList<File> fileQueue = new ArrayList<File>();
     
-    private FileMaker filewriter;
-    private FileParser fileparser;
+    private final FileMaker fileWriter;
+    private final FileParser fileParser;
     
-    public FileManager(){
-        filePathBuffer.add(filePath1);
-        filePathBuffer.add(filePath2);
-        filePathBuffer.add(filePath3);
+    public FileManager(String outputPath, String filePath1, String filePath2, String filePath3){
+        this.outputPath = outputPath;
+        this.filePath1 = filePath1;
+        this.filePath2 = filePath2;
+        this.filePath3 = filePath3;
+        addDefaultPaths();
         
         pathCounter = 0;
         
-        filewriter = new FileMaker();
-        fileparser = new FileParser();
+        fileWriter = new FileMaker();
+        fileParser = new FileParser();
     }         
     
     public void addPath(String path){
         switch (pathCounter) {
             case 0:
-                filePathBuffer.set(0, path);
+                filePathQueue.set(0, path);
                 break;
             case 1:
-                filePathBuffer.set(1, path);
+                filePathQueue.set(1, path);
                 break;
             case 2:
-                filePathBuffer.set(2, path);
+                filePathQueue.set(2, path);
                 break;
             default:
-                filePathBuffer.add(path);
+                filePathQueue.add(path);
                 break;
         }
         pathCounter++;
     }
     
     public void addFiles(){
-        for(String path : filePathBuffer){
+        for(String path : filePathQueue){
             File file = new File(path);
             if(file.exists()){
-                fileBuffer.add(file);
+                fileQueue.add(file);
             }else{
                 System.out.println("Couldn't find file at: " + path + " \nSo it was ignored");
             }
@@ -69,43 +68,53 @@ public class FileManager {
     }   
     
     public void addDefaultPaths(){
-        filePathBuffer.add(filePath1);
-        filePathBuffer.add(filePath2);
-        filePathBuffer.add(filePath3);
+        filePathQueue.add(filePath1);
+        filePathQueue.add(filePath2);
+        filePathQueue.add(filePath3);
     }   
     
     public void recombobulateFiles(String path){
-        ArrayList<Person> personList= fileparser.getPersonListFromFiles(fileBuffer);
-        File outputFile = new File(path);
-        
+        addFiles();
+        ArrayList<PersonBean> personList= fileParser.getPersonListFromFiles(fileQueue);
+        File outputFile;
+
+        if(path == null || path.trim().isEmpty()){
+            outputFile = new File(outputPath);
+        }else{
+            outputFile = new File(path);
+        }              
+
         try {
             if(outputFile.exists()){
                 outputFile.delete();
-            }
-            
+            }           
             outputFile.createNewFile();     
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("Couldn't recombobulate files: " + outputFile.getPath() + " Error: " + ex.getMessage());
         }
         
         for(int i = 0; i < personList.size(); i++){
-            filewriter.writeToFile(outputFile, personList.get(i).toString());
+            fileWriter.writeToFile(outputFile, personList.get(i).toString());
         }
     } 
-    
+
     public void recombobulateFiles(){
         recombobulateFiles(outputPath);
     }
     
     public void clearPaths(){
-        filePathBuffer.clear();
+        filePathQueue.clear();
     }
     
-    public ArrayList<String> getFilePathBuffer(){
-        return filePathBuffer;
+    public String getOutputPath(){
+        return outputPath;
     }
     
-    public ArrayList<File> getFileBuffer(){
-        return fileBuffer;
-    }  
+    public ArrayList<String> getFilePathQueue(){
+        return filePathQueue;
+    }
+    
+    public ArrayList<File> getFileQueue(){
+        return fileQueue;
+    }   
 }

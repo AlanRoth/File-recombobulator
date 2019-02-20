@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import model.Person;
+import model.PersonBean;
 
 /**
  *
@@ -19,15 +19,17 @@ import model.Person;
  */
 public class FileParser {
 
-    private ArrayList<Person> personList;
+    private ArrayList<PersonBean> personList;
 
-    public FileParser() {
-
+    public ArrayList<PersonBean> getPersonListFromFile(File file){
+        ArrayList<File> fileList = new ArrayList<File>();
+        fileList.add(file);
+        return getPersonListFromFiles(fileList);
     }
-
-    public ArrayList<Person> getPersonListFromFiles(ArrayList<File> fileList) {
-        HashMap<String, Person> personMap = new HashMap<String, Person>();
-        ArrayList<Person> personList = new ArrayList<Person>();
+    
+    public ArrayList<PersonBean> getPersonListFromFiles(ArrayList<File> fileList) {
+        HashMap<String, PersonBean> personMap = new HashMap<String, PersonBean>();
+        ArrayList<PersonBean> personList = new ArrayList<PersonBean>();
 
         Pattern idPattern = Pattern.compile("ID: \\d+[^\\s]");
         Pattern namePattern = Pattern.compile("Name: [a-zA-Z].+");
@@ -62,9 +64,9 @@ public class FileParser {
                         if (idMatcher.find()) {
                             currentID = idMatcher.group();
                             if (!personMap.containsKey(currentID)) {
-                                Person newperson = new Person();
-                                newperson.setID(currentID);
-                                personMap.put(currentID, newperson);
+                                PersonBean newPerson = new PersonBean();
+                                newPerson.setID(currentID);
+                                personMap.put(currentID, newPerson);
                             }
                         }
 
@@ -95,7 +97,7 @@ public class FileParser {
             }
         }
 
-        for (Person person : personMap.values()) {
+        for (PersonBean person : personMap.values()) {
             personList.add(person);
         }
 

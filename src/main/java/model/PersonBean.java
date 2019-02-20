@@ -7,7 +7,7 @@ package model;
  *
  * @author asroth
  */
-public class Person {
+public class PersonBean implements java.io.Serializable{
     private String ID;
     private String name;
     private String jobTitle;
@@ -16,7 +16,7 @@ public class Person {
     private String appearance;
     private String phoneNumber;
     
-    public Person(){
+    public PersonBean(){
         
     }
     
@@ -81,8 +81,5 @@ public class Person {
 
     public void setDOB(String DOB) {
         this.DOB = DOB;
-    }
-    
-    
-    
+    }  
 }
