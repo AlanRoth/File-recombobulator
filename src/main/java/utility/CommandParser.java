@@ -3,6 +3,7 @@
  */
 package utility;
 
+import model.Command;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,7 @@ public class CommandParser {
                 fileManager.clearPaths();
                 return true;
             case "VERBOSE":
-                //TO DO
+                fileEditor.toggleVerbose();
                 return true;
             case "QUIT":              
                 return false;         
@@ -53,13 +54,18 @@ public class CommandParser {
                     fileEditor.setCurrentFilePath(command.getCommandData());
                     return true;
                 case "PRINT":
-                    fileEditor.printContents();
+                    if(command.getCommandData().contains("-v")){
+                        fileEditor.printContents(true);
+                    }else{
+                        fileEditor.printContents(false);
+                    }
                     return true;
                 case "NEW":
                     fileEditor.newEntry();
                     return true;
                 case "UPDATE":
-                    fileEditor.updateEntry(command.getCommandData());
+                    fileEditor.updateEntry();
+                    return true;
                 case "BACK":
                     isEditing = false;
                     return true;

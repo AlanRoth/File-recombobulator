@@ -36,6 +36,7 @@ public class UserIO {
         
         fileEditor = new FileEditor();
         fileEditor.setCurrentFilePath(OUTPUTPATH);
+        fileEditor.registerFileManager(fileManager);
         
         menuManager = new MenuManager();
         commandParser = new CommandParser(fileManager, fileEditor);     
@@ -60,8 +61,7 @@ public class UserIO {
 
             if (!commandParser.processCommand(inputParser.getInput())) {
                 isRunning = false;
-            }  
-            
+            }             
         }
     }
 }

@@ -24,10 +24,10 @@ public class MenuManager {
         System.out.println("\nEdit mode\n"
                          + "Currently selected file path: " + filepath + "\n"
                          + "-select {filepath} [Selects a file to edit at provided filepath]\n"
-                         + "-print [Prints all the contents of the currently selected file]\n"
-                         + "-new [Makes a new entry]"
-                         + "-update {ID} {field} {data} [Overwrites the provided field with the provided data]\n"
-                         + "-updateall {ID...} {field} {data} [Provide comma seperated ID's to update the fields with provided data in one action]\n"
+                         + "-print [Prints the ID's and name of the enteries]\n"
+                         + "-print -v [Prints all fields from all enteries]"
+                         + "-new [Makes a new entry]\n"
+                         + "-update [Lets you update single or multiple enteries]\n"
                          + "-delete {ID} [Removes the entry that has the provided ID]\n"
                          + "-back [Return to the main menu]\n");
     }                       

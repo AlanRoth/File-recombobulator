@@ -3,6 +3,7 @@
  */
 package utility;
 
+import model.Command;
 import java.util.Scanner;
 
 /**
@@ -25,7 +26,7 @@ public class InputParser {
     }
     
     public Command getInput(){
-        lastCommand = scanner.next().trim();
+        lastCommand = scanner.next().trim();       
         lastData = scanner.nextLine().trim();
         return new Command(lastCommand, lastData);
     }

@@ -19,16 +19,6 @@ public class PersonBean implements java.io.Serializable{
         
     }
     
-    /*
-    public void setAppearance(Appearance appearance){
-        this.appearance = appearance;
-    }
-    
-    public Appearance getAppearance(){
-        return appearance;
-    }
-    */
-    
     @Override
     public String toString(){
         return ID + "\n" + name + "\n" + jobTitle + "\n" + DOB + "\n" + phoneNumber + "\n" + appearance.toString() + "\n";

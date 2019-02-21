@@ -1,7 +1,7 @@
 /*
  * Copyright Payara Services Ltd
  */
-package utility;
+package model;
 
 import java.util.ArrayList;
 
