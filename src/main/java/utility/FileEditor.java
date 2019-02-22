@@ -173,15 +173,15 @@ public class FileEditor {
                     } else if (newDOB != null) {
                         person.setDOB(newDOB);
                     } else if (newPhoneNumber != null) {
-
+                        person.setPhoneNumber(newPhoneNumber);
                     } else if (newHeight != null) {
-
+                        person.getAppearance().setHeight(newHeight);
                     } else if (newHairColour != null) {
-
+                        person.getAppearance().setHairColour(newHairColour);
                     } else if (newEyeColour != null) {
-
+                        person.getAppearance().setEyeColour(newEyeColour);
                     } else if (newGender != null) {
-
+                        person.getAppearance().setGender(newGender);
                     }
                 }
             }
@@ -190,9 +190,10 @@ public class FileEditor {
                 Thread t1 = new Thread(() -> {
                     fileMaker.writeListToFile(file, personList);
                 });
+                
                 Thread t2 = new Thread(() -> {
                     printContents(true);
-                });
+                });        
                 t1.start();
                 t2.start();
             } else {
