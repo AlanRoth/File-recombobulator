@@ -22,7 +22,7 @@ public class InputParser {
     }
     
     public String getLine(){
-        return scanner.next().trim();
+        return scanner.nextLine().trim();
     }
     
     public Command getInput(){

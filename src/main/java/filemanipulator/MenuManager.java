@@ -22,8 +22,8 @@ public class MenuManager {
     
     public void printEditMenu(String filepath){
         System.out.println("\nEdit mode\n"
-                         + "Currently selected file path: " + filepath + "\n"
-                         + "-select {filepath} [Selects a file to edit at provided filepath]\n"
+                         + "\nCurrently selected file path: " + filepath + "\n"
+                         + "\n-select {filepath} [Selects a file to edit at provided filepath]\n"
                          + "-print [Prints the ID's and name of the enteries]\n"
                          + "-print -v [Prints all fields from all enteries]"
                          + "-new [Makes a new entry]\n"

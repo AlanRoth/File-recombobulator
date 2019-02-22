@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import model.PersonBean;
 
 /**
  *
@@ -21,4 +23,14 @@ public class FileMaker {
             System.out.println("Couldn't write to file! Probably because there is no file to write to. Error: " + ex.getMessage());
         }    
     }    
+    
+    public void writeListToFile(File file, ArrayList<PersonBean> arrayList){
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+            for (PersonBean person : arrayList) {
+                writer.println(person.toString());
+            }
+        } catch (IOException ex) {
+            System.out.println("Couldn't write to file! Probably because there is no file to write to. Error: " + ex.getMessage());
+        }
+    }
 }

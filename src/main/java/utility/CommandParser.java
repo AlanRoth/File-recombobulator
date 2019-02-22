@@ -66,6 +66,9 @@ public class CommandParser {
                 case "UPDATE":
                     fileEditor.updateEntry();
                     return true;
+                case "DELETE":
+                    fileEditor.deleteEntry(command.getCommandData());
+                    return true;
                 case "BACK":
                     isEditing = false;
                     return true;

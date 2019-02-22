@@ -19,7 +19,7 @@ public class AppearanceBean implements java.io.Serializable{
     
     @Override
     public String toString(){
-        return "Appearance: " + height + "; " + hairColour + "; " +  gender + "; " + eyeColour;
+        return "Appearance: Height: " + height + "; Hair Colour: " + hairColour + "; Gender: " +  gender + "; Eye Colour: " + eyeColour;
     }
     
     public void setHeight(String height){

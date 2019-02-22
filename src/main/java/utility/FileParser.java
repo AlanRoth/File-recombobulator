@@ -32,18 +32,17 @@ public class FileParser {
         HashMap<String, PersonBean> personMap = new HashMap<String, PersonBean>();
         ArrayList<PersonBean> personList = new ArrayList<PersonBean>();
 
-        Pattern idPattern = Pattern.compile("ID: \\d+[^\\s]");
-        Pattern namePattern = Pattern.compile("Name: [a-zA-Z].+");
-        Pattern jobPattern = Pattern.compile("Job Title: [a-zA-Z].+");
-        Pattern dobPattern = Pattern.compile("DOB: [0-9]{2}.[0-9]{2}.[0-9]{4}");
-        Pattern appearancePattern = Pattern.compile("Appearance:.+");
-        Pattern mobilePattern = Pattern.compile("Phone Number: [0-9]{11}");
+        Pattern idPattern = Pattern.compile("ID: (\\d+)");
+        Pattern namePattern = Pattern.compile("Name: ([a-zA-Z].+)");
+        Pattern jobPattern = Pattern.compile("Job Title: ([a-zA-Z].+)");
+        Pattern dobPattern = Pattern.compile("DOB: ([0-9]{2}.[0-9]{2}.[0-9]{4})");
+        Pattern mobilePattern = Pattern.compile("Phone Number: ([0-9]{11})");
         
         //Appearance patterns
-        Pattern heightPattern = Pattern.compile("Height: \\d+\\w+");
-        Pattern hairPattern = Pattern.compile("Hair Colour: \\w+");
+        Pattern heightPattern = Pattern.compile("Height: (\\d+\\w+)");
+        Pattern hairPattern = Pattern.compile("Hair Colour: (\\w+)");
         Pattern genderPattern = Pattern.compile("Gender: (Male|Female)");
-        Pattern eyePattern = Pattern.compile("Eye Colour: \\w+");
+        Pattern eyePattern = Pattern.compile("Eye Colour: (\\w+)");
         
         for (File file : fileList) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -79,7 +78,7 @@ public class FileParser {
                         eyeMatcher.reset(line);
 
                         if (idMatcher.find()) {
-                            currentID = idMatcher.group();
+                            currentID = idMatcher.group(1);
                             if (!personMap.containsKey(currentID)) {
                                 PersonBean newPerson = new PersonBean();
                                 AppearanceBean appearance = new AppearanceBean();
@@ -90,40 +89,38 @@ public class FileParser {
                         }
 
                         if (nameMatcher.find()) {
-                            personMap.get(currentID).setName(nameMatcher.group());
+                            personMap.get(currentID).setName(nameMatcher.group(1));
                         }
 
                         if (jobMatcher.find()) {
-                            personMap.get(currentID).setJobTitle(jobMatcher.group());
+                            personMap.get(currentID).setJobTitle(jobMatcher.group(1));
                         }
 
                         if (dobMatcher.find()) {
-                            personMap.get(currentID).setDOB(dobMatcher.group());
+                            personMap.get(currentID).setDOB(dobMatcher.group(1));
                         }
-
+                        
                         if (mobileMatcher.find()) {
-                            personMap.get(currentID).setPhoneNumber(mobileMatcher.group());
+                            personMap.get(currentID).setPhoneNumber(mobileMatcher.group(1));
                         }
                         
-                        if(heightMatcher.find()){
-                            personMap.get(currentID).getAppearance().setHeight(heightMatcher.group());
+                        if (heightMatcher.find()){
+                            personMap.get(currentID).getAppearance().setHeight(heightMatcher.group(1));
                         }
                         
-                        if(hairMatcher.find()){
-                            personMap.get(currentID).getAppearance().setHairColour(hairMatcher.group());
+                        if (hairMatcher.find()){
+                            personMap.get(currentID).getAppearance().setHairColour(hairMatcher.group(1));
                         }
                         
-                        if(genderMatcher.find()){
-                            personMap.get(currentID).getAppearance().setGender(genderMatcher.group());
+                        if (genderMatcher.find()){
+                            personMap.get(currentID).getAppearance().setGender(genderMatcher.group(1));
                         }
                         
-                        if(eyeMatcher.find()){
-                            personMap.get(currentID).getAppearance().setEyeColour(eyeMatcher.group());
-                        }
-                        
+                        if (eyeMatcher.find()){
+                            personMap.get(currentID).getAppearance().setEyeColour(eyeMatcher.group(1));
+                        }                       
                     }
                 }
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
