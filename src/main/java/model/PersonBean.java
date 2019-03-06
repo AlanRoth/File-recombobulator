@@ -21,7 +21,7 @@ public class PersonBean implements java.io.Serializable{
     
     @Override
     public String toString(){
-        return "ID: " + ID + "\n" + "Name: " + name + "\n" + "Job Title: " + jobTitle + "\n" + "DOB: " + DOB + "\n" + "Phone Number: " + phoneNumber 
+        return ID + "\n" + name + "\n" + jobTitle + "\n" + DOB + "\n" + phoneNumber 
                 + "\n" + appearance.toString() + "\n";
     }
     

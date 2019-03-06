@@ -43,6 +43,9 @@ public class CommandParser {
             case "VERBOSE":
                 fileEditor.toggleVerbose();
                 return true;
+            case "JSON":
+                fileManager.toggleIsJson();
+                return true;
             case "QUIT":              
                 return false;         
         }       

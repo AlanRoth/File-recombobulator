@@ -25,6 +25,10 @@ public class FileManager {
     private final FileMaker fileWriter;
     private final FileParser fileParser;
     
+    private final JsonWriter jsonWriter;
+    
+    private boolean isJson;
+    
     public FileManager(String outputPath, String filePath1, String filePath2, String filePath3){
         this.outputPath = outputPath;
         this.filePath1 = filePath1;
@@ -36,6 +40,9 @@ public class FileManager {
         
         fileWriter = new FileMaker();
         fileParser = new FileParser();
+        jsonWriter = new JsonWriter();
+        
+        isJson = false;
     }         
     
     public void addPath(String path){
@@ -93,11 +100,23 @@ public class FileManager {
             System.out.println("Couldn't recombobulate files: " + outputFile.getPath() + " Error: " + ex.getMessage());
         }
         
-        for(int i = 0; i < personList.size(); i++){
-            fileWriter.writeToFile(outputFile, personList.get(i).toString());
-        }
+        if (isJson) {
+            jsonWriter.writeListToJson(outputFile, personList);
+        } else {
+            for (int i = 0; i < personList.size(); i++) {
+                fileWriter.writeToFile(outputFile, personList.get(i).toString());
+            }
+        } 
     } 
 
+    public boolean isJson(){
+        return isJson;
+    }
+    
+    public void toggleIsJson(){
+        isJson = !isJson;
+    }
+    
     public void recombobulateFiles(){
         recombobulateFiles(outputPath);
     }

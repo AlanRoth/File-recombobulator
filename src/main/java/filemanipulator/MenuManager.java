@@ -9,7 +9,7 @@ package filemanipulator;
  */
 public class MenuManager {
 
-    public void printHelpMenu(boolean isVerbose){
+    public void printHelpMenu(boolean isVerbose, boolean isJson){
         System.out.print("\nChoose what you would like to do: \n"
                          + "-add {file path} [Adds the file path for a file to the list]\n"
                          + "-recombobulate {leave empty for default file path} || {file path} [Combines all files in the list into one file] \n"
@@ -17,6 +17,7 @@ public class MenuManager {
                          + "-load [Adds default file paths to already added ones]\n"
                          + "-clear [Clears all added paths, including default]\n"
                          + "-verbose isOn: " + isVerbose +" [Toggles verbose mode, will print edits to console]\n"
+                         + "-json isOn: " + isJson + " [Toggles json mode, will output JSON file instead of txt]\n"
                          + "-quit [Quits the program]\n");
     }
     

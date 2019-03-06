@@ -3,7 +3,6 @@
  */
 package filemanipulator;
 
-import java.util.ArrayList;
 import utility.CommandParser;
 import utility.FileEditor;
 import utility.FileManager;
@@ -15,12 +14,12 @@ import utility.InputParser;
  */
 public class UserIO {  
     //Default output location
-    private static final String OUTPUTPATH = "/home/asroth/Documents/resource/output.txt";
+    private static final String OUTPUTPATH = "/home/asroth/Documents/resource/output";
     //3 default file paths
     private static final String FILEPATH1 = "/home/asroth/Documents/resource/file1";
     private static final String FILEPATH2 = "/home/asroth/Documents/resource/file2";
     private static final String FILEPATH3 = "/home/asroth/Documents/resource/file3";
-    
+
     private final InputParser inputParser;
     public final FileManager fileManager;
     public final FileEditor fileEditor;
@@ -56,7 +55,7 @@ public class UserIO {
                     System.out.println(path);
                 }
 
-                menuManager.printHelpMenu(fileEditor.isVerbose());
+                menuManager.printHelpMenu(fileEditor.isVerbose(), fileManager.isJson());
             }
 
             if (!commandParser.processCommand(inputParser.getInput())) {
