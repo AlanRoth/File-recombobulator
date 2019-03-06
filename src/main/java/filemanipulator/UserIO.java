@@ -14,11 +14,11 @@ import utility.InputParser;
  */
 public class UserIO {  
     //Default output location
-    private static final String OUTPUTPATH = "/home/asroth/Documents/resource/output";
-    //3 default file paths
-    private static final String FILEPATH1 = "/home/asroth/Documents/resource/file1";
-    private static final String FILEPATH2 = "/home/asroth/Documents/resource/file2";
-    private static final String FILEPATH3 = "/home/asroth/Documents/resource/file3";
+    private static final String OUTPUTPATH = System.getProperty("user.home") + "/Documents/resource/output";
+    //3 default file paths /home/asroth/Documents/resource/file3
+    private static final String FILEPATH1 = System.getProperty("user.home") + "/Documents/resource/file1";
+    private static final String FILEPATH2 = System.getProperty("user.home") + "/Documents/resource/file2";
+    private static final String FILEPATH3 = System.getProperty("user.home") + "/Documents/resource/file3";
 
     private final InputParser inputParser;
     public final FileManager fileManager;

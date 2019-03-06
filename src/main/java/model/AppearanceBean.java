@@ -22,6 +22,22 @@ public class AppearanceBean implements java.io.Serializable{
         return "Height: " + height + "; " + "Hair Colour: " +  hairColour + "; " + "Gender: " + gender + "; " + "Eye Colour: " + eyeColour;
     }
     
+    public String getHeight(){
+        return height;
+    }
+    
+    public String getHairColour(){
+        return hairColour;
+    }
+    
+    public String getEyeColour(){
+        return eyeColour;
+    }
+    
+    public String getGender(){
+        return gender;
+    }
+    
     public void setHeight(String height){
         this.height = height;
     }

@@ -100,15 +100,19 @@ public class FileManager {
             System.out.println("Couldn't recombobulate files: " + outputFile.getPath() + " Error: " + ex.getMessage());
         }
         
+        writeFile(outputFile, personList);
+        
+    } 
+
+    public void writeFile(File outputFile, ArrayList<PersonBean> personList){
         if (isJson) {
             jsonWriter.writeListToJson(outputFile, personList);
         } else {
-            for (int i = 0; i < personList.size(); i++) {
-                fileWriter.writeToFile(outputFile, personList.get(i).toString());
-            }
+            fileWriter.writeListToFile(outputFile, personList);
         } 
-    } 
-
+    }
+        
+    
     public boolean isJson(){
         return isJson;
     }

@@ -36,15 +36,20 @@ public class FileParser {
                 String line = reader.readLine();
                 String lastSearch = "";
                 String currentID = "";
+                
+                Function<Matcher, String> findLambda = (m) -> {
+                    if(m.find()){
+                        return m.group(2);
+                    }
+                    
+                    return null;
+                };
+
+                
                 while(line != null){
                     
                     //Find the ID
-                    lastSearch = performSearch("ID: (\\d+)", line, (m) -> {
-                        if(m.find()){                
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?ID\":\"? \"\"?|ID: )([0-9]+)", line, findLambda);
                     if(lastSearch != null){
                         currentID = lastSearch;
                         if(!(personMap.containsKey(currentID))){
@@ -57,89 +62,49 @@ public class FileParser {
                     }
                     
                     //Find the name                
-                    lastSearch = performSearch("Name: ([a-zA-Z].+)", line, (m) -> {
-                        if(m.find()){                
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?name\":\"? \"\"?|Name: )([a-zA-Z ]+)", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).setName(lastSearch);
                     }                                   
                     
                     //Find the job title
-                    lastSearch = performSearch("Job Title: ([a-zA-Z].+)", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?jobTitle\":\"? \"\"?|Job Title: )([a-zA-Z ]+)", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).setJobTitle(lastSearch);
                     }
                  
                     //Find the date of birth
-                    lastSearch = performSearch("DOB: ([0-9]{2}.[0-9]{2}.[0-9]{4})", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?DOB\":\"? \"\"?|DOB: )([0-9]{2}.[0-9]{2}.[0-9]{4})", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).setDOB(lastSearch);
                     }
                     
                     //Find phone number
-                    lastSearch = performSearch("Phone Number: ([0-9]{11})", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?phoneNumber\":\"? \"\"?|Phone Number: )([0-9]{11})", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).setPhoneNumber(lastSearch);
                     }
                     
                     //Find the height
-                    lastSearch = performSearch("Height: (\\d+\\w+)", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?height\":\"? \"\"?|Height: )(\\d+\\w+)", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).getAppearance().setHeight(lastSearch);
                     }
                 
                     //Find the hair colour
-                    lastSearch = performSearch("Hair Colour: (\\w+)", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?hairColour\":\"? \"\"?|Hair Colour: )(\\w+)", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).getAppearance().setHairColour(lastSearch);
                     }
                     
                     //Find the gender
-                    lastSearch = performSearch("Gender: (Male|Female|male|female|m|f)", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?gender\":\"? \"\"?|Gender: )(Male|Female|male|female|M|F|m|f)", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).getAppearance().setGender(lastSearch);
                     }
                     
                     //Find the eye colour
-                    lastSearch = performSearch("Eye Colour: (\\w+)", line, (m) -> {
-                        if (m.find()) {
-                            return m.group(1);
-                        }
-                        return null;
-                    });
+                    lastSearch = performSearch("(\"?eyeColour\":\"? \"\"?|Eye Colour: )(\\w+)", line, findLambda);
                     if(lastSearch != null){
                         personMap.get(currentID).getAppearance().setEyeColour(lastSearch);
                     }             

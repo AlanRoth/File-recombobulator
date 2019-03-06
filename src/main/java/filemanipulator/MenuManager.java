@@ -26,7 +26,7 @@ public class MenuManager {
                          + "\nCurrently selected file path: " + filepath + "\n"
                          + "\n-select {filepath} [Selects a file to edit at provided filepath]\n"
                          + "-print [Prints the ID's and name of the enteries]\n"
-                         + "-print -v [Prints all fields from all enteries]"
+                         + "-print -v [Prints all fields from all enteries]\n"
                          + "-new [Makes a new entry]\n"
                          + "-update [Lets you update single or multiple enteries]\n"
                          + "-delete {ID} [Removes the entry that has the provided ID]\n"
